@@ -1,7 +1,7 @@
 import { Base64 } from "https://deno.land/x/bb64@1.1.0/mod.ts"
-import { message } from "./register.ts";
+import Register from "./register.ts"
 
-export default (request: Request, context: any) => {
+export default async (request: Request, context: any) => {
   if (request.method !== "POST") {
     return new Response("This API accepets only POST request.", {
       status: 400,
@@ -17,14 +17,17 @@ export default (request: Request, context: any) => {
   }
 
   try {
-    return new Response(JSON.stringify({ fulfillmentMessages: [{
-      payload: {
-        line: {
-          type: "text",
-          text: "กรุณาตอบคำถามต่อไปนี้นะคะ ชื่อจริง นามสกุล ชื่อเล่น เบอร์โทรศัพท์ที่ติดต่อได้ ที่อยู่ที่ติดต่อได้",
-        },
-      },
-    }] }))
+    const json = await request.json()
+    let message = {}
+    if (json.queryResult.action === "Register") {
+      message = {
+        type: "text",
+        text: Register.message,
+      }
+    }
+    return new Response(
+      JSON.stringify({ fulfillmentMessages: [{ payload: { line: message } }] })
+    )
   } catch (e) {
     return new Response(e.message, { status: 500 })
   }
