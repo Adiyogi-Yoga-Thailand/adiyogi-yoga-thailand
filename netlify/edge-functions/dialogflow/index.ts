@@ -38,12 +38,19 @@ function handleFulfillment(json: any): any {
       },
     ]
   } else if (json.queryResult.action === "Register.SlotFilling") {
+    const params = json.queryResult.parameters
     return [
       {
         payload: {
           line: {
             type: "text",
-            text: Register.slotFilling[0],
+            text: Register.slotFilling[0](
+              params.firstname,
+              params.lastname,
+              params.nickname,
+              params.telno,
+              params.address
+            ),
           },
         },
       },
