@@ -32,7 +32,15 @@ function handleFulfillment(json: any): any {
         payload: {
           line: {
             type: "text",
-            text: Register.start,
+            text: Register.start[0],
+          },
+        },
+      },
+      {
+        payload: {
+          line: {
+            type: "text",
+            text: Register.start[1],
           },
         },
       },
