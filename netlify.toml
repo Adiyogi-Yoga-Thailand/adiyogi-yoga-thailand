@@ -1,3 +1,3 @@
 [[edge_functions]]
 path = "/dialogflow"
-function = "dialogflow-fulfillment"
+function = "dialogflow"
