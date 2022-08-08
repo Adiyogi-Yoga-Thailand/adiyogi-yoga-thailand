@@ -19,9 +19,7 @@ export default async (request: Request, context: any) => {
   try {
     const json = await request.json()
     const message = handleFulfillment(json) || {}
-    return new Response(
-      JSON.stringify({ fulfillmentMessages: [{ payload: { line: message } }] })
-    )
+    return new Response(JSON.stringify({ fulfillmentMessages: message }))
   } catch (e) {
     return new Response(e.message, { status: 500 })
   }
@@ -29,15 +27,35 @@ export default async (request: Request, context: any) => {
 
 function handleFulfillment(json: any): any {
   if (json.queryResult.action === "Register.Start") {
-    return {
-      type: "text",
-      text: Register.start,
-    }
+    return [
+      {
+        payload: {
+          line: {
+            type: "text",
+            text: Register.start,
+          },
+        },
+      },
+    ]
   } else if (json.queryResult.action === "Register.SlotFilling") {
-    return {
-      type: "flex",
-      altText: "Form checking",
-      contents: Register.slotFilling,
-    }
+    return [
+      {
+        payload: {
+          line: {
+            type: "text",
+            text: Register.slotFilling[0],
+          },
+        },
+      },
+      {
+        payload: {
+          line: {
+            type: "flex",
+            altText: "Form checking",
+            contents: Register.slotFilling[1],
+          },
+        },
+      },
+    ]
   }
 }
