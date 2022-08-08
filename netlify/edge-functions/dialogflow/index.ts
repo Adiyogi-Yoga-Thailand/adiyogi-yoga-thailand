@@ -17,7 +17,14 @@ export default (request: Request, context: any) => {
   }
 
   try {
-    return new Response(JSON.stringify({ fulfillmentMessages: [...message] }))
+    return new Response(JSON.stringify({ fulfillmentMessages: [{
+      payload: {
+        line: {
+          type: "text",
+          text: "กรุณาตอบคำถามต่อไปนี้นะคะ ชื่อจริง นามสกุล ชื่อเล่น เบอร์โทรศัพท์ที่ติดต่อได้ ที่อยู่ที่ติดต่อได้",
+        },
+      },
+    }] }))
   } catch (e) {
     return new Response(e.message, { status: 500 })
   }
