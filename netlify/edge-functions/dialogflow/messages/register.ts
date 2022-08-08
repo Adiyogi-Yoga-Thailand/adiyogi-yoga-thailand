@@ -8,7 +8,7 @@ export default {
       telno: string,
       address: string
     ) =>
-      `กรุณาตรวจสอบข้อมูล\nชื่อจริง : ${firstname}\nนามสกุล : ${lastname}\nชื่อเล่น : ${nickname}\nเบอร์โทรศัพท์ที่ติดต่อได้ : ${telno}\nที่อยู่ที่ติดต่อได้ : ${address}`,
+      `กรุณาตรวจสอบข้อมูล\n\nชื่อจริง : ${firstname}\nนามสกุล : ${lastname}\nชื่อเล่น : ${nickname}\nเบอร์โทรศัพท์ที่ติดต่อได้ : ${telno}\nที่อยู่ที่ติดต่อได้ : ${address}`,
     1: {
       type: "bubble",
       header: {
