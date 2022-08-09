@@ -89,14 +89,6 @@ async function handleFulfillment(json: any): Promise<any> {
           },
         },
       },
-      {
-        payload: {
-          line: {
-            type: "text",
-            text: `${doc}`,
-          },
-        },
-      },
     ]
   }
 }
