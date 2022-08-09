@@ -22,7 +22,7 @@ export default async (request: Request, context: Context) => {
 
   try {
     const json = await request.json()
-    const message = handleFulfillment(json) || []
+    const message = await handleFulfillment(json) || []
     return new Response(JSON.stringify({ fulfillmentMessages: message }))
   } catch (e) {
     return new Response(e.message, { status: 500 })
