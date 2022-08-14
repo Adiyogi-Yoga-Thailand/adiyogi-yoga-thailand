@@ -1,6 +1,6 @@
 import { Context } from "netlify:edge"
 
-// import dialogflow from "https://esm.sh/@google-cloud/dialogflow@5.2.0"
+import dialogflow from "@google-cloud/dialogflow"
 
 export default async (request: Request, context: Context) => {
   const body = await request.json()

@@ -1,9 +1,8 @@
 import { Context } from "netlify:edge"
-
 import { Base64 } from "https://deno.land/x/bb64@1.1.0/mod.ts"
-import * as FaunaDB from "https://deno.land/x/fauna@5.0.0-deno-alpha9/mod.ts"
+import * as FaunaDB from "https://deno.land/x/fauna@5.0.0-deno-alpha9/mod.ts";
 
-import Register from "./messages/register.ts"
+import RegisterMessages from "./messages/register.ts"
 
 export default async (request: Request, context: Context) => {
   if (request.method !== "POST") {
@@ -36,7 +35,7 @@ async function handleFulfillment(json: any): Promise<any> {
         payload: {
           line: {
             type: "text",
-            text: Register.start[0],
+            text: RegisterMessages.start[0],
           },
         },
       },
@@ -44,7 +43,7 @@ async function handleFulfillment(json: any): Promise<any> {
         payload: {
           line: {
             type: "text",
-            text: Register.start[1],
+            text: RegisterMessages.start[1],
           },
         },
       },
@@ -71,7 +70,7 @@ async function handleFulfillment(json: any): Promise<any> {
         payload: {
           line: {
             type: "text",
-            text: Register.slotFilling[0](
+            text: RegisterMessages.slotFilling[0](
               params.firstname,
               params.lastname,
               params.nickname,
@@ -85,7 +84,7 @@ async function handleFulfillment(json: any): Promise<any> {
         payload: {
           line: {
             type: "text",
-            text: Register.slotFilling[1],
+            text: RegisterMessages.slotFilling[1],
           },
         },
       },
