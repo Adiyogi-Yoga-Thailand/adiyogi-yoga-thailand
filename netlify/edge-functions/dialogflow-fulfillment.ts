@@ -1,6 +1,6 @@
 import { Context } from "netlify:edge"
 import { Base64 } from "https://deno.land/x/bb64@1.1.0/mod.ts"
-import FaunaDB, { query as q } from "https://esm.sh/faunadb@4.6.0"
+import FaunaDB from "https://esm.sh/faunadb@4.6.0"
 
 import RegisterMessages from "./messages/register.ts"
 
@@ -54,7 +54,7 @@ async function handleFulfillment(json: any): Promise<any> {
       secret: `${Deno.env.get("FAUNADB_SERVER_SECRET")}`,
     })
     const doc = await client.query(
-      q.Create(q.Collection("users"), {
+      FaunaDB.Create(FaunaDB.Collection("users"), {
         data: {
           firstname: params.firstname,
           lastname: params.lastname,
