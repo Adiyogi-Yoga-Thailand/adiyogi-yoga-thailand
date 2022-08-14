@@ -1,6 +1,6 @@
 import { Context } from "netlify:edge"
 import { Base64 } from "https://deno.land/x/bb64@1.1.0/mod.ts"
-import * as FaunaDB from "https://deno.land/x/fauna@5.0.0-deno-alpha9/mod.ts";
+import { query, Client, Create, Collection } from "https://esm.sh/faunadb@4.6.0"
 
 import RegisterMessages from "./messages/register.ts"
 
@@ -21,7 +21,7 @@ export default async (request: Request, context: Context) => {
 
   try {
     const json = await request.json()
-    const message = await handleFulfillment(json) || []
+    const message = (await handleFulfillment(json)) || []
     return new Response(JSON.stringify({ fulfillmentMessages: message }))
   } catch (e) {
     return new Response(e.message, { status: 500 })
@@ -50,12 +50,11 @@ async function handleFulfillment(json: any): Promise<any> {
     ]
   } else if (json.queryResult.action === "Register.SlotFilling") {
     const params = json.queryResult.parameters
-    const q = FaunaDB.query
-    const client = new FaunaDB.Client({
+    const client = new Client({
       secret: `${Deno.env.get("FAUNADB_SERVER_SECRET")}`,
     })
     const doc = await client.query(
-      q.Create(q.Collection("users"), {
+      Create(Collection("users"), {
         data: {
           firstname: params.firstname,
           lastname: params.lastname,
