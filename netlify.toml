@@ -1,7 +1,7 @@
 [[edge_functions]]
-path = "/dialogflow/fulfillment"
+path = "/edge/dialogflow-fulfillment"
 function = "dialogflow-fulfillment"
 
 [[edge_functions]]
-path = "/dialogflow/server"
-function = "dialogflow-server"
+path = "/edge/webhook"
+function = "webhook"
